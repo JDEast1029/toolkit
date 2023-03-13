@@ -31,12 +31,12 @@ class Storage {
 
 	setPrefix(prefix: string): void {
 		this.prefix = prefix;
-		this.clearOwnKeys();
 	}
 
 	setVersion(version: string): void {
+		if (version === this.version) return;
+		this.clearPrevVersion(this.version);
 		this.version = version;
-		this.clearOwnKeys();
 	}
 
 	set(key: string, value: unknown): void {
@@ -57,6 +57,18 @@ class Storage {
 
 	clearOwnKeys() {
 		const keys = this.ownKeys();
+		keys.forEach((key) => {
+			this.remove(key);
+		});
+	}
+	clearPrevVersion(prevVersion: string) {
+		let keys: string[] = [];
+		for (let i = 0; i < this.length; i++) {
+			const keyName = this.key(i);
+			if (keyName && keyName.startsWith(this.prefix) && keyName.includes(prevVersion)) {
+				keys.push(keyName);
+			}
+		}
 		keys.forEach((key) => {
 			this.remove(key);
 		});
