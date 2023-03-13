@@ -35,8 +35,8 @@ class Storage {
 
 	setVersion(version: string): void {
 		if (version === this.version) return;
-		this.clearPrevVersion(this.version);
 		this.version = version;
+		this.clearPrevVersion(version);
 	}
 
 	set(key: string, value: unknown): void {
@@ -61,11 +61,11 @@ class Storage {
 			this.remove(key);
 		});
 	}
-	clearPrevVersion(prevVersion: string) {
+	clearPrevVersion(curVersion: string) {
 		let keys: string[] = [];
 		for (let i = 0; i < this.length; i++) {
 			const keyName = this.key(i);
-			if (keyName && keyName.startsWith(this.prefix) && keyName.includes(prevVersion)) {
+			if (keyName && keyName.startsWith(this.prefix) && !keyName.includes(curVersion)) {
 				keys.push(keyName);
 			}
 		}
