@@ -1,0 +1,12 @@
+{
+	"name": "@sf/utils",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"dev": "rollup -w --config",
+		"build": "rimraf dist && rollup --config"
+	},
+	"devDependencies": {
+		
+	}
+}

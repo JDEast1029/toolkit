@@ -1,0 +1,50 @@
+{
+  "name": "dicoria",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "clear": "pnpm -r exec rm -rf node_modules",
+    "build": "pnpm -r --filter='./packages/*' run build",
+    "dev:utils": "pnpm --filter='./packages/utils' run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JDEast1029/toolkit.git"
+  },
+  "author": "S.F",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JDEast1029/toolkit/issues"
+  },
+  "homepage": "https://github.com/JDEast1029/toolkit#readme",
+  "devDependencies": {
+    "@rollup/plugin-alias": "^4.0.2",
+    "@rollup/plugin-commonjs": "^24.0.0",
+    "@rollup/plugin-dynamic-import-vars": "^2.0.1",
+    "@rollup/plugin-json": "^5.0.2",
+    "@rollup/plugin-node-resolve": "15.0.1",
+    "@rollup/plugin-typescript": "^10.0.1",
+    "@rollup/pluginutils": "^5.0.2",
+    "@types/node": "^18.11.17",
+    "@typescript-eslint/eslint-plugin": "^5.46.0",
+    "@typescript-eslint/parser": "^5.46.0",
+    "eslint": "^8.30.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-define-config": "^1.12.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-regexp": "^1.11.0",
+    "npm": "^9.2.0",
+    "prettier": "^2.8.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^3.7.5",
+    "run": "^1.4.0",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.4"
+  },
+  "packageManager": "pnpm@7.18.1"
+}
