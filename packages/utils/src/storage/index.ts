@@ -1,11 +1,14 @@
-import { StorageType } from './types';
+import { StorageType, StorageOptionConfig, StorageData } from './types';
 import LRUCache from './lru-cache';
+
+// 缓存时长
+const CACHE_TIMESTAMP = 24 * 60 * 60 * 1000;
 
 class Storage {
 	type: StorageType;
 	prefix: string = '@sf/utils';
 	version: string = '1.0.0';
-	lruCache: LRUCache;
+	lruCache: LRUCache; // storage存储异常时存放在内存中
 
 	constructor(storageType: StorageType) {
 		this.type = storageType;
@@ -42,21 +45,42 @@ class Storage {
 		this.clearPrevVersion(version);
 	}
 
-	set(key: string, value: unknown): void {
-		const stringifyValue = JSON.stringify(value);
+	set(key: string, data: unknown, options?: StorageOptionConfig): void {
+		// 设置缓存时长，默认一天
+		let expireTime;
+		if (options === undefined || options.expireTime === undefined) {
+			expireTime = new Date().getTime() + CACHE_TIMESTAMP;
+		} else {
+			expireTime = options.expireTime;
+		}
+
+		const storageData = { expireTime, data };
+		const stringifyValue = JSON.stringify(storageData);
+
 		try {
 			window[this.type].setItem(`${this.prefix}@${this.version}:${key}`, stringifyValue);
 		} catch (error) {
 			console.error(`@sf/utils: Storage.setItem error: ${error}`);
-			this.lruCache.put(key, value);
+			this.lruCache.put(key, storageData);
 		}
 	}
 	get(key: string): unknown {
 		let resultString = window[this.type].getItem(`${this.prefix}@${this.version}:${key}`);
+		let result;
 		if (resultString === null) {
-			resultString = <string>this.lruCache.get(key);
+			result = this.lruCache.get(key);
+			if (!!result) return result.data;
+			return null;
 		}
-		return resultString ? JSON.parse(resultString) : null;
+		result = JSON.parse(resultString);
+
+		// 缓存过期，清除缓存
+		if (result.expireTime < new Date().getTime()) {
+			this.remove(key);
+			return null;
+		}
+
+		return result.data;
 	}
 
 	remove(key: string) {
@@ -65,6 +89,7 @@ class Storage {
 
 	clear() {
 		window[this.type].clear();
+		this.lruCache.clear();
 	}
 
 	clearOwnKeys() {

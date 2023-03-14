@@ -1,12 +1,12 @@
-import { ILinkedNode, LinkedNodeWithNull } from './types';
+import { ILinkedNode, LinkedNodeWithNull, StorageData } from './types';
 
 export class LinkedNode implements ILinkedNode {
 	key: string;
-	data: unknown;
+	data: StorageData;
 	next: LinkedNodeWithNull;
 	prev: LinkedNodeWithNull;
 
-	constructor(key: string, data: unknown) {
+	constructor(key: string, data: StorageData) {
 		this.key = key;
 		this.data = data;
 		this.next = null;

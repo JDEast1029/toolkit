@@ -12,9 +12,18 @@ export interface IStorage {
 	readonly length: number;
 }
 
+export type StorageOptionConfig = {
+	expireTime?: number;
+};
+
+export type StorageData = {
+	data?: unknown;
+	expireTime: number; // 过期时间戳，取值时如果过期返回空，并且清除当前的缓存
+};
+
 export interface ILinkedNode {
 	key: string;
-	data: unknown;
+	data: StorageData;
 	next: ILinkedNode | null;
 	prev: ILinkedNode | null;
 }
