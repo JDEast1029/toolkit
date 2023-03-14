@@ -1,13 +1,16 @@
-class RegexManage {
-	regexList: never[];
+import { RegexRule, RegexRuleMap } from './types';
+import { RegexRules } from './rules';
 
-	constructor() {
-		this.regexList = [];
+class RegexManage {
+	regexRules: RegexRuleMap;
+
+	constructor(regexRules?: RegexRuleMap) {
+		this.regexRules = regexRules || {};
 	}
 
-	inject() {}
+	inject(field: string, rule: RegexRule) {}
 
 	validator(rule, value, callback) {}
 }
 
-export const Regex = new RegexManage();
+export const Regex = new RegexManage(RegexRules);
