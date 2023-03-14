@@ -1,12 +1,15 @@
 import { StorageType } from './types';
+import LRUCache from './lru-cache';
 
 class Storage {
 	type: StorageType;
 	prefix: string = '@sf/utils';
 	version: string = '1.0.0';
+	lruCache: LRUCache;
 
 	constructor(storageType: StorageType) {
 		this.type = storageType;
+		this.lruCache = new LRUCache();
 	}
 
 	get length(): number {
@@ -40,10 +43,19 @@ class Storage {
 	}
 
 	set(key: string, value: unknown): void {
-		window[this.type].setItem(`${this.prefix}@${this.version}:${key}`, JSON.stringify(value));
+		const stringifyValue = JSON.stringify(value);
+		try {
+			window[this.type].setItem(`${this.prefix}@${this.version}:${key}`, stringifyValue);
+		} catch (error) {
+			console.error(`@sf/utils: Storage.setItem error: ${error}`);
+			this.lruCache.put(key, value);
+		}
 	}
 	get(key: string): unknown {
-		const resultString = window[this.type].getItem(`${this.prefix}@${this.version}:${key}`);
+		let resultString = window[this.type].getItem(`${this.prefix}@${this.version}:${key}`);
+		if (resultString === null) {
+			resultString = <string>this.lruCache.get(key);
+		}
 		return resultString ? JSON.parse(resultString) : null;
 	}
 

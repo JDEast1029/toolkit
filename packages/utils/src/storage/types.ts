@@ -11,3 +11,12 @@ export interface IStorage {
 	key(n: number): string;
 	readonly length: number;
 }
+
+export interface ILinkedNode {
+	key: string;
+	data: unknown;
+	next: ILinkedNode | null;
+	prev: ILinkedNode | null;
+}
+
+export type LinkedNodeWithNull = ILinkedNode | null;
