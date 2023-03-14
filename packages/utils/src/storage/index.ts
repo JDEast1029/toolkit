@@ -1,14 +1,14 @@
-import { StorageType, StorageOptionConfig, StorageData } from './types';
+import { StorageType, StorageOptionConfig } from './types';
 import LRUCache from './lru-cache';
 
 // 缓存时长
 const CACHE_TIMESTAMP = 24 * 60 * 60 * 1000;
 
 class Storage {
+	private lruCache: LRUCache; // storage存储异常时存放在内存中, 这里lru目前不是必须的
 	type: StorageType;
 	prefix: string = '@sf/utils';
 	version: string = '1.0.0';
-	lruCache: LRUCache; // storage存储异常时存放在内存中
 
 	constructor(storageType: StorageType) {
 		this.type = storageType;
@@ -98,7 +98,7 @@ class Storage {
 			this.remove(key);
 		});
 	}
-	clearPrevVersion(curVersion: string) {
+	private clearPrevVersion(curVersion: string) {
 		let keys: string[] = [];
 		for (let i = 0; i < this.length; i++) {
 			const keyName = this.key(i);
