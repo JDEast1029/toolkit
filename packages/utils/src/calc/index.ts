@@ -134,7 +134,7 @@ class CalcManager {
 		this.result = add(this.result, val);
 		return this;
 	}
-	sub(val: CalcParam, isExchange: boolean): CalcManager {
+	sub(val: CalcParam, isExchange?: boolean): CalcManager {
 		this.result = isExchange ? sub(val, this.result) : sub(this.result, val);
 		return this;
 	}
@@ -142,11 +142,11 @@ class CalcManager {
 		this.result = mul(this.result, val);
 		return this;
 	}
-	div(val: CalcParam, isExchange: boolean): CalcManager {
+	div(val: CalcParam, isExchange?: boolean): CalcManager {
 		this.result = isExchange ? div(val, this.result) : div(this.result, val);
 		return this;
 	}
-	mod(val: CalcParam, isExchange: boolean): CalcManager {
+	mod(val: CalcParam, isExchange?: boolean): CalcManager {
 		this.result = isExchange ? mod(val, this.result) : mod(this.result, val);
 		return this;
 	}
