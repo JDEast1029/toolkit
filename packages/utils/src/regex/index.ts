@@ -17,7 +17,7 @@ class RegexManage {
 	}
 
 	// name: [{ type: 'mobile', message: 'xxx', validator: Regex.validator }]
-	validator(rule, value, callback, source, options) {
+	validator(rule, value, callback, source?, options?) {
 		const ruleItem = this.regexRules[rule.type];
 		if (!ruleItem) return callback();
 
