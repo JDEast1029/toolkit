@@ -7,3 +7,25 @@ export interface ILinkedNode {
 export interface IDoubleLinkedNode extends ILinkedNode {
 	prev: IDoubleLinkedNode | null;
 }
+
+export interface IteratorInterface {
+	next: () => {
+		value: any;
+		done: boolean;
+	};
+}
+export interface ILinkedList {
+	header: ILinkedNode | null;
+	tail: ILinkedNode | null;
+	length: number;
+	append(...nodes: ILinkedNode[]): void;
+	insert(node: ILinkedNode, refNode: ILinkedNode): void;
+	contains(node: ILinkedNode): boolean;
+	remove(node: ILinkedNode): void;
+	indexOf(node: ILinkedNode): number;
+	isEmpty(): boolean;
+	reverse(): void;
+	clear(): void;
+	iterator(node: ILinkedNode): () => void;
+	[Symbol.iterator](): IteratorInterface;
+}
