@@ -1,0 +1,13 @@
+{
+	"name": "@sf/utils",
+	"type": "module",
+	"private": true,
+	"main": "./dist/index.js",
+	"scripts": {
+		"dev": "rollup -w --config --environment NODE_ENV:development",
+		"build": "rimraf dist && rollup --config --environment NODE_ENV:production"
+	},
+	"devDependencies": {
+		
+	}
+}
