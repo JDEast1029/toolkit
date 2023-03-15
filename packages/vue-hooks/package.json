@@ -8,9 +8,11 @@
 		"build": "rimraf dist && rollup --config --environment NODE_ENV:production"
 	},
 	"devDependencies": {
-		"vue": "^3.2.47"
+		"vue": "^3.2.47",
+		"vue-router": "^4.1.6"
 	},
 	"peerDependencies": {
-		"vue": "^3.2.47"
+		"vue": "^3.2.47",
+		"vue-router": "^4.1.6"
 	}
 }
