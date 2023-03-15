@@ -1,6 +1,7 @@
 import { sleep } from '@tests-utils';
 import { LocalStorage, SessionStorage } from '..';
 import './lru-cache.test';
+import './linked-list.test';
 
 // @vitest-environment happy-dom
 test('LocalStorage & SessionStorage returned something', () => {
