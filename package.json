@@ -8,7 +8,8 @@
     "preinstall": "npx only-allow pnpm",
     "clear": "pnpm -r exec rm -rf node_modules",
     "build": "pnpm -r --filter='./packages/*' run build",
-    "dev:utils": "pnpm --filter='./packages/utils' run dev"
+    "dev:utils": "pnpm --filter='./packages/utils' run dev",
+    "build:utils": "pnpm --filter='./packages/utils' run build"
   },
   "repository": {
     "type": "git",
