@@ -8,7 +8,7 @@ export default defineConfig({
 		},
 	},
 	test: {
-		globals: true,
+		globals: true, // test文件不需要在单独引入vitest的api，需要在tsconfig.json内增加配置
 		coverage: {
 			reporter: ['text', 'json', 'html'],
 			reportsDirectory: './tests/unit/coverage',

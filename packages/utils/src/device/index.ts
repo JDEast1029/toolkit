@@ -16,7 +16,7 @@ class DeviceManager {
 	wechatDevTools: boolean = false;
 	wechatVersion: string = '';
 
-	webView: RegExpMatchArray | null = null;
+	webView: boolean | null = null;
 	touch: boolean = false;
 
 	firefox: boolean = false;
@@ -48,7 +48,10 @@ class DeviceManager {
 	reset(opts?: ResetOptions) {
 		this.restoreDefault();
 
-		const ua = IS_SERVER || opts?.userAgent ? opts?.userAgent || '' : navigator.userAgent;
+		const ua =
+			IS_SERVER || opts
+				? (<ResetOptions>opts)?.userAgent || navigator.userAgent
+				: navigator.userAgent;
 
 		const android = ua.match(/(Android);?[\s\/]+([\d.]+)?/);
 		const ipad = ua.match(/(iPad).*OS\s([\d_]+)/);
@@ -81,7 +84,7 @@ class DeviceManager {
 		}
 
 		// Webview
-		this.webView = (iphone || ipad || ipod) && ua.match(/.*AppleWebKit(?!.*Safari)/i);
+		this.webView = (iphone || ipad || ipod) && /.*AppleWebKit(?!.*Safari)/i.test(ua);
 
 		// wechat
 		this.wechat = /MicroMessenger/i.test(ua);
