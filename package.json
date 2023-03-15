@@ -13,7 +13,9 @@
     "dev:http": "pnpm --filter='./packages/http' run dev",
     "build:http": "pnpm --filter='./packages/http' run build",
     "dev:hooks": "pnpm --filter='./packages/vue-hooks' run dev",
-    "build:hooks": "pnpm --filter='./packages/vue-hooks' run build"
+    "build:hooks": "pnpm --filter='./packages/vue-hooks' run build",
+    "test": "vitest",
+    "test:coverage": "vitest watch --coverage"
   },
   "repository": {
     "type": "git",
@@ -27,20 +29,21 @@
   "homepage": "https://github.com/JDEast1029/toolkit#readme",
   "devDependencies": {
     "@babel/core": "^7.21.3",
-		"@babel/preset-env": "^7.20.2",
-		"@rollup/plugin-babel": "^6.0.3",
-		"@rollup/plugin-node-resolve": "^15.0.1",
-		"@rollup/plugin-typescript": "^11.0.0",
-		"@rollup/plugin-terser": "^0.4.0",
-		"@rollup/plugin-replace": "5.0.2",
+    "@babel/preset-env": "^7.20.2",
     "@rollup/plugin-alias": "^4.0.2",
+    "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-dynamic-import-vars": "^2.0.1",
     "@rollup/plugin-json": "^5.0.2",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-replace": "5.0.2",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-typescript": "^11.0.0",
     "@rollup/pluginutils": "^5.0.2",
     "@types/node": "^18.11.17",
     "@typescript-eslint/eslint-plugin": "^5.46.0",
     "@typescript-eslint/parser": "^5.46.0",
+    "@vitest/coverage-c8": "^0.29.2",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-define-config": "^1.12.0",
@@ -54,7 +57,8 @@
     "rollup": "^3.7.5",
     "run": "^1.4.0",
     "tslib": "^2.4.1",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "vitest": "^0.29.2"
   },
   "peerDependencies": {
     "typescript": "^3.7.0"

@@ -1,4 +1,4 @@
-import { CalcParam, ExtendFunction } from './types';
+import { Value, ExtendFunction } from './types';
 
 /**
  * 浮点数计算 加法
@@ -6,7 +6,7 @@ import { CalcParam, ExtendFunction } from './types';
  * @param arg2
  * @returns {number}
  */
-const add = (arg1: CalcParam, arg2: CalcParam): number => {
+const add = (arg1: Value, arg2: Value): number => {
 	let r1, r2, m, c;
 	try {
 		r1 = arg1.toString().split('.')[1].length;
@@ -42,7 +42,7 @@ const add = (arg1: CalcParam, arg2: CalcParam): number => {
  * @param arg2
  * @returns {string} 返回string类型，保证['1.00'] 不会变成 [1]
  */
-const sub = (arg1: CalcParam, arg2: CalcParam): string => {
+const sub = (arg1: Value, arg2: Value): string => {
 	let r1, r2, m, n;
 	try {
 		r1 = arg1.toString().split('.')[1].length;
@@ -64,7 +64,7 @@ const sub = (arg1: CalcParam, arg2: CalcParam): string => {
  * @param arg2
  * @returns {number}
  */
-const mul = (arg1: CalcParam, arg2: CalcParam): number => {
+const mul = (arg1: Value, arg2: Value): number => {
 	let m = 0,
 		s1 = arg1.toString(),
 		s2 = arg2.toString();
@@ -82,7 +82,7 @@ const mul = (arg1: CalcParam, arg2: CalcParam): number => {
  * @param arg2
  * @returns {number}
  */
-const div = (arg1: CalcParam, arg2: CalcParam): number => {
+const div = (arg1: Value, arg2: Value): number => {
 	let t1 = 0,
 		t2 = 0,
 		r1,
@@ -105,7 +105,7 @@ const div = (arg1: CalcParam, arg2: CalcParam): number => {
  * @param {*} arg2
  * @param {*} opts
  */
-const mod = (arg1: CalcParam, arg2: CalcParam): number => {
+const mod = (arg1: Value, arg2: Value): number => {
 	let t1 = 0,
 		t2 = 0;
 	try {
@@ -126,31 +126,31 @@ const mod = (arg1: CalcParam, arg2: CalcParam): number => {
  * class -> babel
  */
 class CalcManager {
-	private result: CalcParam;
+	private result: Value;
 	constructor(val) {
 		this.result = val;
 	}
-	add(val: CalcParam): CalcManager {
+	add(val: Value): CalcManager {
 		this.result = add(this.result, val);
 		return this;
 	}
-	sub(val: CalcParam, isExchange?: boolean): CalcManager {
+	sub(val: Value, isExchange?: boolean): CalcManager {
 		this.result = isExchange ? sub(val, this.result) : sub(this.result, val);
 		return this;
 	}
-	mul(val: CalcParam): CalcManager {
+	mul(val: Value): CalcManager {
 		this.result = mul(this.result, val);
 		return this;
 	}
-	div(val: CalcParam, isExchange?: boolean): CalcManager {
+	div(val: Value, isExchange?: boolean): CalcManager {
 		this.result = isExchange ? div(val, this.result) : div(this.result, val);
 		return this;
 	}
-	mod(val: CalcParam, isExchange?: boolean): CalcManager {
+	mod(val: Value, isExchange?: boolean): CalcManager {
 		this.result = isExchange ? mod(val, this.result) : mod(this.result, val);
 		return this;
 	}
-	extend(fn: ExtendFunction, ...restOfName: string[]) {
+	extend(fn: ExtendFunction, ...restOfName: Value[]) {
 		if (typeof fn === 'function') {
 			this.result = fn(this.result, ...restOfName);
 		}
@@ -162,4 +162,4 @@ class CalcManager {
 }
 
 // Calc(1).add(1).val();
-export const Calc = (v: CalcParam): CalcManager => new CalcManager(v);
+export const Calc = (v: Value): CalcManager => new CalcManager(v);

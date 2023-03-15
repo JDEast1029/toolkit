@@ -8,6 +8,5 @@
 		"build": "rimraf dist && rollup --config --environment NODE_ENV:production"
 	},
 	"devDependencies": {
-		
 	}
 }
