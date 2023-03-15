@@ -17,7 +17,7 @@ export const useDisableDate = (minDate?: string) => {
 
 	const timePickerOptions = ref({
 		disabledTime(date) {
-			return date.getTime() < (new Date(minDate || '').getTime() || Date.now());
+			return date.getTime() < (new Date(minDate || new Date()).getTime() || Date.now());
 		},
 	});
 	return {

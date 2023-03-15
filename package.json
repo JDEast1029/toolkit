@@ -12,8 +12,8 @@
     "build:utils": "pnpm --filter='./packages/utils' run build",
     "dev:http": "pnpm --filter='./packages/http' run dev",
     "build:http": "pnpm --filter='./packages/http' run build",
-    "dev:hooks": "pnpm --filter='./packages/hooks' run dev",
-    "build:hooks": "pnpm --filter='./packages/hooks' run build"
+    "dev:hooks": "pnpm --filter='./packages/vue-hooks' run dev",
+    "build:hooks": "pnpm --filter='./packages/vue-hooks' run build"
   },
   "repository": {
     "type": "git",
