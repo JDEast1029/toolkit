@@ -1,9 +1,12 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 import typescript from '@rollup/plugin-typescript';
+import replace from '@rollup/plugin-replace';
+import terser from "@rollup/plugin-terser";
 import rollupConfig from '../../rollup.config.js';
 
-export default  {
+const env = process.env.NODE_ENV
+const config = {
 	...rollupConfig,
 	input: './src/index.ts',
 	output: {
@@ -15,6 +18,20 @@ export default  {
 			extensions:['.js', '.ts']
 		}),
 		typescript(),
-		babel({ babelHelpers: 'bundled' })
+		babel({ 
+			babelHelpers: 'bundled',
+			exclude: '**/node_modules/**'
+		}),
+		replace({
+            exclude: 'node_modules/**',
+			preventAssignment: true,
+            ENV: JSON.stringify(process.env.NODE_ENV),
+        }),
 	]
 };
+
+if (env === 'production') {
+	config.plugins.push(terser())
+}
+
+export default config
