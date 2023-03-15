@@ -5,6 +5,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@utils': resolve(__dirname, './packages/utils/src/index.ts'),
+			'@tests-utils': resolve(__dirname, './tests/utils/index.ts'),
 		},
 	},
 	test: {

@@ -4,8 +4,8 @@ test('Calc returned something', () => {
 	expect(Calc(1)).toBeDefined();
 });
 
-const extendFn = (value1, value2) => {
-	return value1 + value2;
+const extendFn = (result, value1, value2) => {
+	return result + value1 + value2;
 };
 
 test('Calc add should work', () => {

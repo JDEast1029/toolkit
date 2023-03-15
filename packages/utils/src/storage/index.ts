@@ -41,8 +41,8 @@ class Storage {
 
 	setVersion(version: string): void {
 		if (version === this.version) return;
-		this.version = version;
 		this.clearPrevVersion(version);
+		this.version = version;
 	}
 
 	set(key: string, data: unknown, options?: StorageOptionConfig): void {
@@ -84,7 +84,11 @@ class Storage {
 	}
 
 	remove(key: string) {
-		window[this.type].removeItem(key);
+		const completePrefix = `${this.prefix}@${this.version}:`;
+		if (key.includes(completePrefix)) {
+			window[this.type].removeItem(key);
+		}
+		window[this.type].removeItem(`${completePrefix}${key}`);
 	}
 
 	clear() {
