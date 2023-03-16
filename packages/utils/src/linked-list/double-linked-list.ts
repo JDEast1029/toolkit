@@ -1,10 +1,10 @@
-import { ILinkedList, ILinkedNode, IteratorInterface, IDoubleLinkedNode } from './types';
+import { ILinkedList, IteratorInterface, IDoubleLinkedNode } from './types';
 
 export class DoubleLinkedNode implements IDoubleLinkedNode {
 	prev: IDoubleLinkedNode | null;
 	key: string;
 	data: unknown;
-	next: ILinkedNode | null;
+	next: IDoubleLinkedNode | null;
 
 	constructor(key: string, data: unknown) {
 		this.key = key;
@@ -15,42 +15,122 @@ export class DoubleLinkedNode implements IDoubleLinkedNode {
 }
 
 export class DoubleLinkedList implements ILinkedList {
-	header: ILinkedNode | null;
-	tail: ILinkedNode | null;
+	head: IDoubleLinkedNode | null;
+	tail: IDoubleLinkedNode | null;
 	length: number;
 	constructor() {
-		this.header = null;
+		this.head = null;
 		this.tail = null;
 		this.length = 0;
 	}
-	append(...nodes: ILinkedNode[]): void {
-		throw new Error('Method not implemented.');
+
+	append(...nodes: IDoubleLinkedNode[]): void {
+		this.insert(nodes[0]);
+		if (nodes.length > 1) {
+			this.append.apply(this, nodes.splice(1));
+		}
 	}
-	insert(node: ILinkedNode, refNode: ILinkedNode): void {
-		throw new Error('Method not implemented.');
+	insert(node: IDoubleLinkedNode, refNode?: IDoubleLinkedNode): void {
+		if (refNode !== undefined && refNode !== null) {
+			if (!this.contains(refNode)) {
+				console.error('目标节点不在当前链表内');
+				return;
+			}
+			node.next = refNode.next;
+			refNode.next = node;
+			node.prev = refNode;
+		} else if (this.tail !== null) {
+			this.tail.next = node;
+			node.prev = this.tail;
+			this.tail = node;
+		} else {
+			node.prev = null;
+			this.head = node;
+			this.tail = node;
+		}
+		this.length += 1;
 	}
-	contains(node: ILinkedNode): boolean {
-		throw new Error('Method not implemented.');
+	contains(node: IDoubleLinkedNode): boolean {
+		let curNode;
+		let next = this.iterator();
+		while ((curNode = next())) {
+			if (curNode === node) {
+				return true;
+			}
+		}
+		return false;
 	}
-	remove(node: ILinkedNode): void {
-		throw new Error('Method not implemented.');
+	remove(node: IDoubleLinkedNode): void {
+		if (!this.contains(node)) return;
+		if (node.prev !== null) node.prev.next = node.next;
+		if (node.next !== null) node.next.prev = node.prev;
+		if (node === this.head) this.head = node.next;
+		if (node === this.tail) this.tail = node.prev;
+		this.length -= 1;
 	}
-	indexOf(node: ILinkedNode): number {
-		throw new Error('Method not implemented.');
+	indexOf(node: IDoubleLinkedNode): number {
+		let index = -1;
+		let curNode;
+		let next = this.iterator();
+		while ((curNode = next())) {
+			index += 1;
+			if (curNode === node) return index;
+		}
+		return index;
 	}
 	isEmpty(): boolean {
-		throw new Error('Method not implemented.');
+		return !!this.head && !!this.tail && !!this.length;
 	}
 	reverse(): void {
-		throw new Error('Method not implemented.');
+		let curNode;
+		let retHead = this.head;
+		let retTail = this.tail;
+		let next = this.iterator();
+		while ((curNode = next())) {
+			if (curNode === retHead) {
+				curNode.prev = curNode.next;
+				curNode.next = null;
+				this.tail = curNode;
+			} else if (curNode === retTail) {
+				curNode.next = curNode.prev;
+				curNode.prev = null;
+				this.head = curNode;
+			} else {
+				let retNext = curNode.next;
+				curNode.next = curNode.prev;
+				curNode.prev = retNext;
+			}
+		}
 	}
 	clear(): void {
-		throw new Error('Method not implemented.');
+		this.head = null;
+		this.tail = null;
+		this.length = 0;
 	}
-	iterator(node: ILinkedNode): () => void {
-		throw new Error('Method not implemented.');
+
+	iterator(node?: IDoubleLinkedNode): () => IDoubleLinkedNode | null {
+		let curNode = node || this.head;
+		return () => {
+			let ret = curNode;
+			if (curNode) {
+				curNode = curNode.next;
+				return ret;
+			}
+			return ret;
+		};
 	}
+
 	[Symbol.iterator](): IteratorInterface {
-		throw new Error('Method not implemented.');
+		let curNode = this.head;
+		return {
+			next: () => {
+				if (curNode) {
+					const value = curNode.data;
+					curNode = curNode.next;
+					return { done: false, value: value };
+				}
+				return { done: true, value: undefined };
+			},
+		};
 	}
 }
