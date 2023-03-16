@@ -1,3 +1,4 @@
+import { IDoubleLinkedNode } from '../linked-list/types';
 export type StorageType = 'localStorage' | 'sessionStorage';
 
 export interface IStorage {
@@ -21,11 +22,10 @@ export type StorageData = {
 	expireTime: number; // 过期时间戳，取值时如果过期返回空，并且清除当前的缓存
 };
 
-export interface ILinkedNode {
-	key: string;
+export interface IStorageNode extends IDoubleLinkedNode {
 	data: StorageData;
-	next: ILinkedNode | null;
-	prev: ILinkedNode | null;
+	next: IStorageNode | null;
+	prev: IStorageNode | null;
 }
 
-export type LinkedNodeWithNull = ILinkedNode | null;
+export type StorageNodeWithNull = IStorageNode | null;
