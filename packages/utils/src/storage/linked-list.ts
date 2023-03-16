@@ -33,7 +33,7 @@ export default class LinkedList extends DoubleLinkedList {
 			return;
 		}
 		node.next = this.head;
-		this.head.prev = null;
+		this.head.prev = node;
 		this.head = node;
 		this.length++;
 	}
