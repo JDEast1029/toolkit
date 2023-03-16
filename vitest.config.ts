@@ -6,6 +6,7 @@ export default defineConfig({
 		alias: {
 			'@utils': resolve(__dirname, './packages/utils/src/index.ts'),
 			'@tests-utils': resolve(__dirname, './tests/utils/index.ts'),
+			'@sf/data-structure': resolve(__dirname, './packages/data-structure/src/index.ts'),
 		},
 	},
 	test: {
@@ -14,6 +15,13 @@ export default defineConfig({
 			reporter: ['text', 'json', 'html'],
 			reportsDirectory: './tests/unit/coverage',
 		},
-		exclude: ['lib', 'node_modules'],
+		exclude: [
+			'**/node_modules/**',
+			'**/dist/**',
+			'**/lib/**',
+			'**/cypress/**',
+			'**/.{idea,git,cache,output,temp}/**',
+			'**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
+		],
 	},
 });
