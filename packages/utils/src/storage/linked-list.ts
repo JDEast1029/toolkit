@@ -1,4 +1,4 @@
-import { IStorageNode, StorageNodeWithNull, StorageData } from './types';
+import { IStorageNode, StorageData } from './types';
 import { DoubleLinkedList } from '../linked-list/index';
 
 export class StorageNode implements IStorageNode {

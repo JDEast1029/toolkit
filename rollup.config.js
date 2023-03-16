@@ -13,7 +13,7 @@ const config = {
 			extensions:['.js', '.ts']
 		}),
 		typescript({
-			tsconfig: './tsconfig.json',
+			tsconfig: './tsconfig.json'
 		}),
 		babel({ 
 			babelHelpers: 'bundled',

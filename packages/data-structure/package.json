@@ -1,14 +1,12 @@
 {
-	"name": "@sf/utils",
+	"name": "@sf/data-structure",
+	"version": "0.0.1",
 	"type": "module",
 	"private": true,
 	"main": "./dist/index.js",
 	"scripts": {
 		"dev": "rollup -w --config --environment NODE_ENV:development",
 		"build": "rimraf dist && rollup --config --environment NODE_ENV:production"
-	},
-	"dependencies": {
-		"@sf/data-structure": "workspace:*"
 	},
 	"devDependencies": {
 	}

@@ -14,6 +14,8 @@
     "build:http": "pnpm --filter='./packages/http' run build",
     "dev:hooks": "pnpm --filter='./packages/vue-hooks' run dev",
     "build:hooks": "pnpm --filter='./packages/vue-hooks' run build",
+    "dev:structure": "pnpm --filter='./packages/data-structure' run dev",
+    "build:structure": "pnpm --filter='./packages/data-structure' run build",
     "test": "vitest",
     "test:coverage": "vitest watch --coverage"
   },

@@ -1,4 +1,5 @@
 import { IDoubleLinkedNode } from '../linked-list/types';
+
 export type StorageType = 'localStorage' | 'sessionStorage';
 
 export interface IStorage {
@@ -27,5 +28,3 @@ export interface IStorageNode extends IDoubleLinkedNode {
 	next: IStorageNode | null;
 	prev: IStorageNode | null;
 }
-
-export type StorageNodeWithNull = IStorageNode | null;
