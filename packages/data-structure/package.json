@@ -3,7 +3,19 @@
 	"version": "0.0.1",
 	"type": "module",
 	"private": true,
-	"main": "./dist/index.js",
+	"main": "./lib/index.js",
+	"types": "./lib/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./lib/index.js",
+			"require": "./lib/index.cjs",
+			"types": "./lib/index.d.ts"
+		}
+	},
+	"files": [
+		"lib",
+		"*.d.ts"
+	],
 	"scripts": {
 		"dev": "rollup -w --config --environment NODE_ENV:development",
 		"build": "rimraf dist && rollup --config --environment NODE_ENV:production"

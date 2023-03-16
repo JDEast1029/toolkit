@@ -1,6 +1,1 @@
-export {
-	SingleLinkedList,
-	SingleLinkedNode,
-	DoubleLinkedList,
-	DoubleLinkedNode,
-} from './linked-list/index';
+export * from './linked-list/index';

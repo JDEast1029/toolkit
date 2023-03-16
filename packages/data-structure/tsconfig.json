@@ -1,6 +1,7 @@
 {
-	"extends": "../../tsconfig.base.json",
+	"extends": "../../tsconfig.json",
 	"compilerOptions": {
-		"declaration": false, // "declarationDir": "/"
-	},
+		"declaration": false,
+		"types": ["vitest/globals"]
+	}
 }

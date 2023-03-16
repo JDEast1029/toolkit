@@ -4,6 +4,7 @@ import terser from "@rollup/plugin-terser";
 import nodeResolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
+import dts from "rollup-plugin-dts";
 
 const env = process.env.NODE_ENV
 const config = {
@@ -11,9 +12,6 @@ const config = {
 		commonjs(), 
 		nodeResolve({
 			extensions:['.js', '.ts']
-		}),
-		typescript({
-			tsconfig: './tsconfig.json'
 		}),
 		babel({ 
 			babelHelpers: 'bundled',
@@ -29,6 +27,7 @@ const config = {
 
 if (env === 'production') {
 	config.plugins.push(terser())
+	dts()
 }
 
 export default config

@@ -1,5 +1,3 @@
-import '../../linked-list/__tests__/double.test';
-import '../../linked-list/__tests__/single.test';
 import LinkedList, { StorageNode } from '../linked-list';
 
 test('LinkedList & StorageNode can be instantiated', () => {

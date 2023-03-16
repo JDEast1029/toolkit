@@ -1,5 +1,5 @@
 import { IStorageNode, StorageData } from './types';
-import { DoubleLinkedList } from '../linked-list/index';
+import { DoubleLinkedList } from '@sf/data-structure';
 
 export class StorageNode implements IStorageNode {
 	key: string;

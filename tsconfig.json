@@ -1,3 +1,21 @@
 {
-	"extends": "./tsconfig.base.json"
+	"compilerOptions": {
+		"target": "ES2020",
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"strict": true,
+		"declaration": true,
+		"noImplicitOverride": true,
+		"noUnusedLocals": true,
+		"esModuleInterop": true,
+		"useUnknownInCatchVariables": false,
+		"resolveJsonModule": true,
+		"outDir": "./lib",
+		"noImplicitAny": false,  // 在表达式和声明上有隐含的 any类型时是否报错。
+		"types": ["vitest/globals"],
+		"paths": {
+			"@tests-utils": ["./tests/utils/index.ts"]
+		}
+	},
+	"exclude": ["node_modules", "lib"]
 }

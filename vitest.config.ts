@@ -14,5 +14,6 @@ export default defineConfig({
 			reporter: ['text', 'json', 'html'],
 			reportsDirectory: './tests/unit/coverage',
 		},
+		exclude: ['lib', 'node_modules'],
 	},
 });

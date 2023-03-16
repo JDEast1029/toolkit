@@ -5,9 +5,12 @@
 node_modules
 
 dist
+lib
 
 package-lock.json
 
 pnpm-lock.yaml
 
 tests/unit/*
+
+.vscode
