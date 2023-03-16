@@ -85,10 +85,10 @@ export class SingleLinkedList implements ILinkedList {
 			index += 1;
 			if (curNode === node) return index;
 		}
-		return index;
+		return -1;
 	}
 	isEmpty(): boolean {
-		return !!this.head && !!this.tail && !!this.length;
+		return !this.head && !this.tail && this.length === 0;
 	}
 	reverse(): void {
 		let curNode;
