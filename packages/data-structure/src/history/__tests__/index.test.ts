@@ -37,19 +37,22 @@ test('History push should work', () => {
 
 test('History undo should work', () => {
 	history.clear();
+	history.push(1);
 	history.push(2);
-	history.undo();
+	history.undo(2);
 	expect(history.length).toBe(0);
 	expect(history.undo()).toBeUndefined();
 });
 
 test('History redo should work', () => {
 	history.clear();
+	history.push(1);
 	history.push(2);
-	history.undo();
-	expect(history.length).toBe(0);
-	history.redo();
+	history.push(3);
+	history.undo(2);
 	expect(history.length).toBe(1);
+	history.redo(2);
+	expect(history.length).toBe(3);
 	expect(history.redo()).toBeUndefined();
 });
 

@@ -19,23 +19,29 @@ class History {
 	}
 
 	// 回滚
-	undo() {
-		let value = this.undoStack.pop();
-		if (value === undefined) {
-			console.warn('History 无法回滚');
-			return;
+	undo(delta: number = 1) {
+		while (delta > 0) {
+			let value = this.undoStack.pop();
+			if (value === undefined) {
+				console.warn('History 无法回滚');
+				return;
+			}
+			this.redoStack.push(value);
+			delta--;
 		}
-		this.redoStack.push(value);
 	}
 
 	// 重做
-	redo() {
-		let value = this.redoStack.pop();
-		if (value === undefined) {
-			console.warn('History 无法前进');
-			return;
+	redo(delta: number = 1) {
+		while (delta > 0) {
+			let value = this.redoStack.pop();
+			if (value === undefined) {
+				console.warn('History 无法前进');
+				return;
+			}
+			this.undoStack.push(value);
+			delta--;
 		}
-		this.undoStack.push(value);
 	}
 
 	clear() {
