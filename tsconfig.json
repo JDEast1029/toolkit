@@ -14,7 +14,8 @@
 		"noImplicitAny": false,  // 在表达式和声明上有隐含的 any类型时是否报错。
 		"types": ["vitest/globals"],
 		"paths": {
-			"@tests-utils": ["./tests/utils/index.ts"]
+			"@tests-utils": ["./tests/utils/index.ts"],
+			"@shfang/data-structure": ["./packages/data-structure/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "lib"]

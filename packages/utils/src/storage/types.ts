@@ -1,4 +1,4 @@
-import { IDoubleLinkedNode } from '@sf/data-structure';
+import { IDoubleLinkedNode } from '@shfang/data-structure';
 
 export type StorageType = 'localStorage' | 'sessionStorage';
 

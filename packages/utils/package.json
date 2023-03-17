@@ -1,14 +1,23 @@
 {
-	"name": "@sf/utils",
+	"name": "@shfang/utils",
 	"type": "module",
 	"private": true,
 	"main": "./lib/index.js",
+	"exports": {
+		".": {
+			"import": "./lib/index.js",
+			"require": "./lib/index.cjs"
+		}
+	},
+	"files": [
+		"lib"
+	],
 	"scripts": {
 		"dev": "rollup -w --config --environment NODE_ENV:development",
 		"build": "rimraf dist && rollup --config --environment NODE_ENV:production"
 	},
 	"dependencies": {
-		"@sf/data-structure": "workspace:*"
+		"@shfang/data-structure": "^0.0.1"
 	},
 	"devDependencies": {
 	}

@@ -6,7 +6,7 @@ export default defineConfig({
 		alias: {
 			'@utils': resolve(__dirname, './packages/utils/src/index.ts'),
 			'@tests-utils': resolve(__dirname, './tests/utils/index.ts'),
-			'@sf/data-structure': resolve(__dirname, './packages/data-structure/src/index.ts'),
+			'@shfang/data-structure': resolve(__dirname, './packages/data-structure/src/index.ts'),
 		},
 	},
 	test: {

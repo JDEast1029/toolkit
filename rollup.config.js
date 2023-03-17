@@ -27,7 +27,7 @@ const config = {
 
 if (env === 'production') {
 	config.plugins.push(terser())
-	dts()
+	dts({ respectExternal: true })
 }
 
 export default config

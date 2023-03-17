@@ -1,8 +1,16 @@
 {
-	"name": "@sf/data-structure",
+	"name": "@shfang/data-structure",
 	"version": "0.0.1",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/JDEast1029/toolkit",
+		"directory": "packages/web-worker"
+	},
+	"homepage": "https://github.com/JDEast1029/toolkit#readme",
+	"bugs": {
+		"url": "https://github.com/JDEast1029/toolkit/issues"
+	},
 	"type": "module",
-	"private": true,
 	"main": "./lib/index.js",
 	"types": "./lib/index.d.ts",
 	"exports": {

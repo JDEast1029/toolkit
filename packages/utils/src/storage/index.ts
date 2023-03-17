@@ -7,7 +7,7 @@ const CACHE_TIMESTAMP = 24 * 60 * 60 * 1000;
 class Storage {
 	private lruCache: LRUCache; // storage存储异常时存放在内存中, 这里lru目前不是必须的
 	type: StorageType;
-	prefix: string = '@sf/utils';
+	prefix: string = '@shfang/utils';
 	version: string = '1.0.0';
 
 	constructor(storageType: StorageType) {
@@ -60,7 +60,7 @@ class Storage {
 		try {
 			window[this.type].setItem(`${this.prefix}@${this.version}:${key}`, stringifyValue);
 		} catch (error) {
-			console.error(`@sf/utils: Storage.setItem error: ${error}`);
+			console.error(`@shfang/utils: Storage.setItem error: ${error}`);
 			this.lruCache.put(key, storageData);
 		}
 	}

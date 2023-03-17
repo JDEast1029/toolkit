@@ -20,13 +20,13 @@ test('length filed should work', () => {
 test('key function should word', () => {
 	LocalStorage.clear();
 	LocalStorage.set('l-key', 1);
-	expect(LocalStorage.key(0)).toBe('@sf/utils@1.0.0:l-key');
+	expect(LocalStorage.key(0)).toBe('@shfang/utils@1.0.0:l-key');
 });
 
 test('ownKeys function should word', () => {
 	LocalStorage.clear();
 	LocalStorage.set('l-ownKeys', 1);
-	expect(LocalStorage.ownKeys()).toEqual(['@sf/utils@1.0.0:l-ownKeys']);
+	expect(LocalStorage.ownKeys()).toEqual(['@shfang/utils@1.0.0:l-ownKeys']);
 });
 
 test('setPrefix function should work', () => {
@@ -40,16 +40,16 @@ test('setPrefix function should work', () => {
 	SessionStorage.set('s-setPrefix', 1);
 	expect(SessionStorage.ownKeys()).toEqual(['prefix@1.0.0:s-setPrefix']);
 
-	LocalStorage.setPrefix('@sf/utils');
+	LocalStorage.setPrefix('@shfang/utils');
 });
 
 test('setVersion function should work', () => {
 	LocalStorage.clear();
-	LocalStorage.setPrefix('@sf/utils');
+	LocalStorage.setPrefix('@shfang/utils');
 	LocalStorage.setVersion('1.0.0');
 	LocalStorage.setVersion('1.0.1');
 	LocalStorage.set('l-setVersion', 1);
-	expect(LocalStorage.ownKeys()).toEqual(['@sf/utils@1.0.1:l-setVersion']);
+	expect(LocalStorage.ownKeys()).toEqual(['@shfang/utils@1.0.1:l-setVersion']);
 
 	LocalStorage.setVersion('1.0.0');
 });
