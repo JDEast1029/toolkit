@@ -1,5 +1,5 @@
 {
-  "name": "dicoria",
+  "name": "toolkit",
   "type": "module",
   "version": "0.0.1",
   "description": "",
@@ -17,8 +17,7 @@
     "dev:structure": "pnpm --filter='./packages/data-structure' run dev",
     "build:structure": "pnpm --filter='./packages/data-structure' run build",
     "test": "vitest",
-    "test:coverage": "vitest --watch --coverage",
-    "release": "bumpp package.json packages/*/package.json --commit --push --tag && pnpm -r publish --access public"
+    "test:coverage": "vitest --watch --coverage"
   },
   "repository": {
     "type": "git",
@@ -47,7 +46,6 @@
     "@typescript-eslint/eslint-plugin": "^5.46.0",
     "@typescript-eslint/parser": "^5.46.0",
     "@vitest/coverage-c8": "^0.29.2",
-    "bumpp": "^9.0.0",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-define-config": "^1.12.0",
