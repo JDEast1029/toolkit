@@ -5,6 +5,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@tests-utils': resolve(__dirname, './tests/utils/index.ts'),
+			'@sft/data-structure': resolve(__dirname, './packages/data-structure/src/index.ts'),
 		},
 	},
 	test: {
