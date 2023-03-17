@@ -1,18 +1,18 @@
 {
 	"name": "@sft/data-structure",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/JDEast1029/toolkit",
-		"directory": "packages/web-worker"
+		"directory": "packages/data-structure"
 	},
 	"homepage": "https://github.com/JDEast1029/toolkit#readme",
 	"bugs": {
 		"url": "https://github.com/JDEast1029/toolkit/issues"
 	},
 	"type": "module",
-	"main": "./lib/index.js",
-	"types": "./lib/index.d.ts",
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
 	"exports": {
 		".": {
 			"import": "./lib/index.js",
@@ -26,7 +26,7 @@
 	],
 	"scripts": {
 		"dev": "rollup -w --config --environment NODE_ENV:development",
-		"build": "rimraf dist && rollup --config --environment NODE_ENV:production"
+		"build": "rimraf lib && rollup --config --environment NODE_ENV:production"
 	},
 	"devDependencies": {
 	}

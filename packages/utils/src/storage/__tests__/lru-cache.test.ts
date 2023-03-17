@@ -5,5 +5,5 @@ test('LRUCache capacity should work', () => {
 	lruCache.put('1', { expireTime: 1 });
 	lruCache.put('2', { expireTime: 2 });
 	lruCache.put('3', { expireTime: 3 });
-	expect(lruCache.get('1')).toBeUndefined();
+	expect(lruCache.get('1')).toBeNull();
 });
