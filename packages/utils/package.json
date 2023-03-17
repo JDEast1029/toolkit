@@ -1,5 +1,5 @@
 {
-	"name": "@shfang/utils",
+	"name": "@sft/utils",
 	"type": "module",
 	"private": true,
 	"main": "./lib/index.js",
@@ -17,7 +17,7 @@
 		"build": "rimraf dist && rollup --config --environment NODE_ENV:production"
 	},
 	"dependencies": {
-		"@shfang/data-structure": "^0.0.1"
+		"@sft/data-structure": "^0.0.1"
 	},
 	"devDependencies": {
 	}

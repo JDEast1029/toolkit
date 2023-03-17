@@ -53,6 +53,6 @@ export const array2Map = (
  */
 const timestamp = +new Date();
 let index = 0;
-export const getUid = (prefix = '@shfang/utils') => {
+export const getUid = (prefix = '@sft/utils') => {
 	return `${prefix}-${timestamp}-${++index}`;
 };

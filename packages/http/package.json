@@ -1,5 +1,5 @@
 {
-	"name": "@shfang/http",
+	"name": "@sft/http",
 	"type": "module",
 	"private": true,
 	"main": "./dist/index.js",
