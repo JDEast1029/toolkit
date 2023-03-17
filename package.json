@@ -7,7 +7,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "clear": "pnpm -r exec rm -rf node_modules",
-    "build": "pnpm -r --filter='./packages/*' run build",
+    "build": "pnpm -r --filter='./packages/**' run build",
     "dev:utils": "pnpm --filter='./packages/utils' run dev",
     "build:utils": "pnpm --filter='./packages/utils' run build",
     "dev:http": "pnpm --filter='./packages/http' run dev",
