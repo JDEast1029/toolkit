@@ -1,5 +1,5 @@
-import rollupConfig from '../../rollup.config.js';
 import typescript from '@rollup/plugin-typescript';
+import rollupConfig from '../../rollup.config.js';
 
 export default [
 	{
@@ -9,13 +9,13 @@ export default [
 			file: 'lib/index.cjs',
 			format: 'cjs',
 		},{
-			file: 'lib/index.mjs',
+			file: 'lib/index.js',
 			format: 'esm',
 		}],
 		plugins: [
 			...rollupConfig.plugins,
 			typescript({
-				tsconfig: '../tsconfig.json',
+				tsconfig: './tsconfig.json',
 			}),
 		]
 	},
