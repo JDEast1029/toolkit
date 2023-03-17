@@ -25,8 +25,9 @@
 		"*.d.ts"
 	],
 	"scripts": {
+		"test": "vitest --root ./src",
 		"dev": "rollup -w --config --environment NODE_ENV:development",
-		"build": "rimraf lib && rollup --config --environment NODE_ENV:production"
+		"build": "rimraf lib  && rollup --config --environment NODE_ENV:production"
 	},
 	"devDependencies": {
 	}

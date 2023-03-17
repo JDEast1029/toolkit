@@ -3,5 +3,9 @@
 	"compilerOptions": {
 		"declaration": false,
 		"types": ["vitest/globals"]
-	}
+	},
+	"exclude": [
+		"node_modules", 
+		"lib", 
+	]
 }

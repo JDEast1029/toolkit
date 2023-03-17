@@ -17,7 +17,7 @@
     "dev:structure": "pnpm --filter='./packages/data-structure' run dev",
     "build:structure": "pnpm --filter='./packages/data-structure' run build",
     "test": "vitest",
-    "test:coverage": "vitest watch --coverage"
+    "test:coverage": "vitest --watch --coverage"
   },
   "repository": {
     "type": "git",
