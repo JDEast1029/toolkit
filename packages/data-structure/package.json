@@ -1,6 +1,6 @@
 {
 	"name": "@sft/data-structure",
-	"version": "0.0.2",
+	"version": "0.0.1",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/JDEast1029/toolkit",
@@ -29,6 +29,5 @@
 		"dev": "rollup -w --config --environment NODE_ENV:development",
 		"build": "rimraf lib  && rollup --config --environment NODE_ENV:production"
 	},
-	"devDependencies": {
-	}
+	"devDependencies": {}
 }
