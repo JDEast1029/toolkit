@@ -25,7 +25,21 @@ test('Log createResult should work', () => {
 });
 
 test('Log level function should work', () => {
-	Log.info('11');
-	Log.warn('11');
 	Log.error('11');
+	Log.warn('11');
+	const { result: result1, optionalParams: optionalParams1 } =
+		Log.info('1', Log.blue('A'), Log.bold('B'), '2') || {};
+	expect(result1).toBe(`%c1 %cA %cB %c2`);
+	expect(optionalParams1).toEqual(['', 'color: #0000FF', 'font-weight: 900', '']);
+
+	const { result: result2, optionalParams: optionalParams2 } = Log.info('1', '2') || {};
+	expect(result2).toBe(`%c1 %c2`);
+	expect(optionalParams2).toEqual(['', '']);
+
+	const { result: result3, optionalParams: optionalParams3 } = Log.info(Log.bold.blue('A')) || {};
+	expect(result3).toBe(`%cA`);
+	expect(optionalParams3).toEqual(['font-weight: 900;color: #0000FF']);
+
+	Log.close(true);
+	expect(Log.info('')).toBeUndefined();
 });

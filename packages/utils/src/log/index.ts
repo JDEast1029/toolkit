@@ -26,6 +26,7 @@ const PRESETS_COLORS = {
 class LogManage {
 	[x: string]: any;
 	private styleMap: string[] = [];
+	private isClosed: boolean = false;
 	styles: string[] = [];
 
 	chalkBuilder(name: string) {
@@ -88,20 +89,28 @@ class LogManage {
 		return result;
 	}
 
-	info(...content: (string | ChalkResult)[]) {
-		const [message, optionalParams] = this.createResult(...content);
+	close(close: boolean) {
+		this.isClosed = close;
+	}
 
-		console.log(message.join(' %c'), ...optionalParams);
+	private logFactory(fnName: string, ...content: (string | ChalkResult)[]) {
+		if (this.isClosed) return;
+		const [message, optionalParams] = this.createResult(...content);
+		const result = message.map((it) => `%c${it}`).join(' ');
+		console[fnName](result, ...optionalParams);
+		return { result, optionalParams };
+	}
+
+	info(...content: (string | ChalkResult)[]) {
+		return this.logFactory('log', ...content);
 	}
 
 	warn(...content: (string | ChalkResult)[]) {
-		const [message, optionalParams] = this.createResult(...content);
-		console.warn(message.join(' %c'), ...optionalParams);
+		return this.logFactory('warn', ...content);
 	}
 
 	error(...content: (string | ChalkResult)[]) {
-		const [message, optionalParams] = this.createResult(...content);
-		console.error(message.join(' %c'), ...optionalParams);
+		return this.logFactory('error', ...content);
 	}
 }
 

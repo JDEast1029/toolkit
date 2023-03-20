@@ -1,7 +1,7 @@
 {
 	"name": "@sft/utils",
 	"type": "module",
-	"private": true,
+	"version": "0.0.2",
 	"main": "./lib/index.js",
 	"exports": {
 		".": {
@@ -18,6 +18,5 @@
 	},
 	"dependencies": {
 		"@sft/data-structure": "^0.0.1"
-	},
-	"version": "0.0.1"
+	}
 }
