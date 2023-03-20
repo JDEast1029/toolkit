@@ -96,7 +96,7 @@ class LogManage {
 	private logFactory(fnName: string, ...content: (string | ChalkResult)[]) {
 		if (this.isClosed) return;
 		const [message, optionalParams] = this.createResult(...content);
-		const result = message.map((it) => `%c${it}`).join(' ');
+		const result = message.map((it) => `%c${it || ' '}`).join(' ');
 		console[fnName](result, ...optionalParams);
 		return { result, optionalParams };
 	}

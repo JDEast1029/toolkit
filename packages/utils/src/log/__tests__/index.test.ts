@@ -40,6 +40,12 @@ test('Log level function should work', () => {
 	expect(result3).toBe(`%cA`);
 	expect(optionalParams3).toEqual(['font-weight: 900;color: #0000FF']);
 
+	Log.createChalk('image', (imageSrc) => `background-image: ${imageSrc}`);
+	const { result: result4, optionalParams: optionalParams4 } =
+		Log.info(Log.image('https://xxxx')) || {};
+	expect(result4).toBe(`%c `);
+	expect(optionalParams4).toEqual(['background-image: https://xxxx']);
+
 	Log.close(true);
 	expect(Log.info('')).toBeUndefined();
 });
