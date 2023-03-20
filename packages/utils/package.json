@@ -19,6 +19,5 @@
 	"dependencies": {
 		"@sft/data-structure": "^0.0.1"
 	},
-	"devDependencies": {},
 	"version": "0.0.1"
 }

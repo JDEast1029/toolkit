@@ -2,7 +2,7 @@ export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 export type RequestHeader = {
 	[key: string]: string;
 };
-export type Config = {
+export type RequestConfig = {
 	url: string;
 	baseUrl?: string;
 	method?: RequestMethod;

@@ -1,3 +1,3 @@
-import { Config } from './types';
+import { RequestConfig } from './types';
 
-export const createRequest = (config: Config) => {};
+export const createRequest = (config: RequestConfig) => {};

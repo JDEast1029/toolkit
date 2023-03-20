@@ -15,7 +15,16 @@ export default {
 	plugins: [
 		...rollupConfig.plugins,
 		tsPlugin({
-			tsconfig: "./tsconfig.json"
+			tsconfig: "./tsconfig.json",
+			exclude: process.env.NODE_ENV === 'production' ? [
+				"node_modules", 
+				"lib",
+				"**/*.test.ts",
+				"**/__tests__/**"
+			]: [
+				"node_modules", 
+				"lib",
+			]
 		}),
 	]
 }
