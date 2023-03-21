@@ -84,12 +84,12 @@ export default class HttpRequest {
 					reject(error);
 				}
 			};
-			if (typeof config.onDownloadProgress === 'function') {
-				request.addEventListener('progress', config.onDownloadProgress);
+			if (typeof userConfig.onDownloadProgress === 'function') {
+				request.addEventListener('progress', userConfig.onDownloadProgress);
 			}
 
-			if (typeof config.onUploadProgress === 'function' && request.upload) {
-				request.upload.addEventListener('progress', config.onUploadProgress);
+			if (typeof userConfig.onUploadProgress === 'function' && request.upload) {
+				request.upload.addEventListener('progress', userConfig.onUploadProgress);
 			}
 
 			// Network error
@@ -99,7 +99,7 @@ export default class HttpRequest {
 			};
 
 			// set headers
-			this.setHeaders(request, config);
+			this.setHeaders(request, userConfig);
 
 			// Document | Blob | BufferSource | FormData | URLSearchParams | string
 			let params: SendBody = null;
