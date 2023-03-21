@@ -98,6 +98,16 @@ export default class HttpRequest {
 				request = null;
 			};
 
+			// abort
+			if (userConfig.signal) {
+				userConfig.signal.onabort = (event) => {
+					if (!request) return;
+					reject(new ClientError('abort by user', request, userConfig));
+					request.abort();
+					request = null;
+				};
+			}
+
 			// set headers
 			this.setHeaders(request, userConfig);
 

@@ -31,6 +31,7 @@ export type RequestConfig = {
 	responseType?: XMLHttpRequestResponseType;
 	onDownloadProgress?: (ProgressEvent) => any;
 	onUploadProgress?: (ProgressEvent) => any;
+	signal?: AbortSignal;
 };
 
 export type GlobalRequestConfig = RequiredByKeys<RequestConfig, keyof typeof DEFAULT_CONFIG>;
