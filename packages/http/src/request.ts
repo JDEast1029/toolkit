@@ -50,7 +50,7 @@ export default class HttpRequest {
 
 		let request: XMLHttpRequest | null = new XMLHttpRequest();
 
-		request.timeout = userConfig.timeout || DEFAULT_CONFIG.timeout;
+		request.timeout = userConfig.timeout;
 
 		return new Promise((resolve, reject) => {
 			if (request === null) return;

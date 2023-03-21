@@ -24,7 +24,7 @@ export type RequestConfig = {
 	baseUrl?: string;
 	method?: RequestMethod;
 	headers?: RequestHeaders;
-	params?: Document | XMLHttpRequestBodyInit | null | undefined | object;
+	params?: SendBody | object;
 	timeout?: number;
 	withCredentials?: boolean;
 	async?: boolean;
