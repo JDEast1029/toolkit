@@ -1,5 +1,6 @@
 import { TreeNode } from './types';
 export * from './clone-deep';
+export * from './url';
 
 export const compose = (...fns) =>
 	fns.reduceRight(
@@ -10,14 +11,6 @@ export const compose = (...fns) =>
 
 export const curry = (fn, arity = fn.length, ...args) =>
 	arity <= args.length ? fn(...args) : curry.bind(null, fn, arity, ...args);
-
-export const getQuery = (url: string) => {
-	return url.match(/([^?=&]+)(=([^&])*)/g)?.reduce((pre, cur) => {
-		const [key, value] = cur.split('=');
-		pre[key] = value;
-		return pre;
-	}, {});
-};
 
 export const parseTreeData = (
 	treeData: object,
