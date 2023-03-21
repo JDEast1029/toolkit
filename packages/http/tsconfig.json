@@ -2,6 +2,6 @@
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
 		"declaration": false,
-		"types": ["vitest/globals"]
+		"types": ["vitest/globals", "@sft/utils"]
 	}
 }
