@@ -22,8 +22,8 @@ export class InterceptorManage {
 
 	// 只拦截一次，成功or失败后取消掉
 	useOnce(interceptor: Interceptor) {
-		const onceInterceptor = async (...args) => {
-			const result = await interceptor(...args).finally(() => this.off(onceInterceptor));
+		const onceInterceptor = async (params) => {
+			const result = await interceptor(params).finally(() => this.off(onceInterceptor));
 			return result;
 		};
 		this.use(onceInterceptor);
@@ -32,8 +32,8 @@ export class InterceptorManage {
 	// 覆盖当前的拦截器，成功or失败后还原
 	useOverride(interceptor: Interceptor) {
 		const originInterceptors = this.interceptors;
-		const overrideInterceptor = async (...args) => {
-			const result = await interceptor(...args).finally(
+		const overrideInterceptor = async (params) => {
+			const result = await interceptor(params).finally(
 				() => (this.interceptors = originInterceptors),
 			);
 			return result;

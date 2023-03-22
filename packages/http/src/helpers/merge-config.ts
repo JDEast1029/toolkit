@@ -2,13 +2,13 @@ import { isObject } from './utils';
 
 export const mergeConfig = <T>(source: object, merged: object): T => {
 	let mergedKeys = Object.keys(merged);
-	const globalKeys = Object.keys(source);
+	const sourceKeys = Object.keys(source);
 	let config = {};
-	for (let i = 0; i < globalKeys.length; i++) {
-		const key = globalKeys[i];
+	for (let i = 0; i < sourceKeys.length; i++) {
+		const key = sourceKeys[i];
 		const value = source[key];
 		const mergedValue = merged[key];
-		if (value) {
+		if (value !== null || value !== undefined) {
 			if (isObject(value) && mergedValue && isObject(mergedValue)) {
 				config[key] = [...value, ...mergedValue];
 			} else {

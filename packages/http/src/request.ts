@@ -1,12 +1,11 @@
-import { Utils } from '@sft/utils';
+// import { Utils } from '@sft/utils';
 import { DEFAULT_CONFIG } from './constants';
 import { parseResponseHeaders, parseResponseData } from './helpers/parse-response';
 import { GlobalRequestConfig, UserConfig, ResponseData, SendBody, RequiredByKeys } from './types';
-import { ClientError, ServerError } from './error';
+import { ClientError, ServerError, InternalError, RequestError } from './error';
 import { mergeConfig } from './helpers/merge-config';
-import { createFormData, isObject } from './helpers/utils';
+import { createFormData, getQuery, getUrlPath, isObject, mergeUrl } from './helpers/utils';
 import { InterceptorManage } from './interceptor/index';
-import { Interceptor } from './interceptor/types';
 
 export default class HttpRequest {
 	globalConfig: GlobalRequestConfig;
@@ -27,7 +26,7 @@ export default class HttpRequest {
 		}
 	}
 
-	private createGetUrl(userConfig: UserConfig) {
+	private createFetchUrl(userConfig: UserConfig) {
 		let url = new URL(userConfig.url, userConfig.baseUrl).href;
 		let query = {};
 		if (typeof userConfig.params === 'string') {
@@ -42,8 +41,9 @@ export default class HttpRequest {
 		} else if (isObject(userConfig.params)) {
 			query = <object>userConfig.params;
 		}
-		url = Utils.mergeUrl(Utils.getUrlPath(url), {
-			...Utils.getQuery(url),
+
+		url = mergeUrl(getUrlPath(url), {
+			...getQuery(url),
 			...query,
 		});
 		return url;
@@ -51,8 +51,8 @@ export default class HttpRequest {
 
 	private dispatchRequest(config: UserConfig): Promise<ResponseData> {
 		const userConfig = mergeConfig<RequiredByKeys<UserConfig, keyof typeof DEFAULT_CONFIG>>(
-			this.globalConfig,
 			config,
+			this.globalConfig,
 		);
 		let request: XMLHttpRequest | null = new XMLHttpRequest();
 
@@ -88,6 +88,7 @@ export default class HttpRequest {
 				} catch (error) {
 					// 解析过程错误
 					reject(error);
+					request = null;
 				}
 			};
 			if (typeof userConfig.onDownloadProgress === 'function') {
@@ -100,7 +101,7 @@ export default class HttpRequest {
 
 			// Network error
 			request.onerror = (event) => {
-				reject(new ClientError('Network error', request, userConfig));
+				reject(new RequestError('网络错误', request, userConfig));
 				request = null;
 			};
 
@@ -108,53 +109,52 @@ export default class HttpRequest {
 			if (userConfig.signal) {
 				userConfig.signal.onabort = (event) => {
 					if (!request) return;
-					reject(new ClientError('abort by user', request, userConfig));
+					reject(new RequestError('请求被终止', request, userConfig));
 					request.abort();
 					request = null;
 				};
 			}
 
-			// set headers
-			this.setHeaders(request, userConfig);
+			try {
+				// Document | Blob | BufferSource | FormData | URLSearchParams | string
+				let params: SendBody = null;
 
-			// Document | Blob | BufferSource | FormData | URLSearchParams | string
-			let params: SendBody = null;
+				// GET 和 HEAD请求参数需要跟在url上
+				let url = new URL(userConfig.url, userConfig.baseUrl).href;
+				if (['GET', 'HEAD'].includes(userConfig.method.toUpperCase())) {
+					url = this.createFetchUrl(userConfig);
+				} else if (isObject(userConfig.params)) {
+					params = createFormData(userConfig.params as object);
+				} else {
+					params = <SendBody>userConfig.params;
+				}
 
-			// GET 和 HEAD请求参数需要跟在url上
-			let url = new URL(userConfig.url, userConfig.baseUrl).href;
-			if (['GET', 'HEAD'].includes(userConfig.method.toUpperCase())) {
-				url = this.createGetUrl(userConfig);
-			} else if (isObject(userConfig.params)) {
-				params = createFormData(userConfig.params as object);
-			} else {
-				params = <SendBody>userConfig.params;
+				// open url
+				request.open(userConfig.method, url, userConfig.async);
+
+				// set headers 需要在 open 和 send之间设置
+				this.setHeaders(request, userConfig);
+				// responseType需要在 open 和 send之间设置
+				request.responseType = userConfig.responseType;
+
+				// send data
+				request.send(params);
+			} catch (error) {
+				reject(new ClientError(`${error.name}: ${error.message}`, request, userConfig));
 			}
-
-			// open url
-			request.open(userConfig.method, url, userConfig.async);
-
-			// responseType需要在 open 和 send之间设置
-			request.responseType = userConfig.responseType;
-
-			// send data
-			request.send(params);
 		});
 	}
 
 	request(config: UserConfig) {
 		const promiseChain = [
 			...this.interceptors.request.interceptors,
-			this.dispatchRequest,
+			this.dispatchRequest.bind(this),
 			...this.interceptors.response.interceptors,
 		];
-		let promise = Promise.resolve(config);
-		while (promiseChain.length) {
-			try {
-				promise = promise.then(promiseChain.shift());
-			} catch (error) {
-				return Promise.reject(error);
-			}
-		}
-		return promise;
+
+		return promiseChain.reduce(
+			(pre, interceptor) => pre.then(interceptor),
+			Promise.resolve(config),
+		);
 	}
 }

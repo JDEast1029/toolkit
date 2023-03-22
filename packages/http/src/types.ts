@@ -36,7 +36,7 @@ export type RequestConfig = {
 
 export type GlobalRequestConfig = RequiredByKeys<RequestConfig, keyof typeof DEFAULT_CONFIG>;
 
-export type UserConfig = RequiredByKeys<RequestConfig, 'url' | 'baseUrl' | 'method'>;
+export type UserConfig = RequiredByKeys<RequestConfig, 'url'>;
 
 export type Interceptors = {
 	// response: [];

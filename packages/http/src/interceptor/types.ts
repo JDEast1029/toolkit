@@ -1,1 +1,1 @@
-export type Interceptor = (...args: any[]) => any;
+export type Interceptor = (params: any) => any;

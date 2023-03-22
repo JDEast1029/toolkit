@@ -3,17 +3,17 @@ import { RequestConfig } from './types';
 export class InternalError extends Error {
 	constructor(message) {
 		super(message);
-		this.name = 'InternalError';
+		this.name = '【@sft/http InternalError】';
 	}
 }
 
-class RequestError extends Error {
+export class RequestError extends Error {
 	request: XMLHttpRequest | null;
 	config: RequestConfig;
 
 	constructor(message: string, request: XMLHttpRequest | null, config: RequestConfig) {
 		super(message);
-		this.name = 'RequestError';
+		this.name = '【@sft/http RequestError】';
 		this.request = request;
 		this.config = config;
 	}
@@ -31,8 +31,8 @@ class RequestError extends Error {
 export class ServerError extends RequestError {
 	constructor(status: number | string, request: XMLHttpRequest | null, config: RequestConfig) {
 		super('', request, config);
-		this.name = 'ServerError';
-		this.message = `客户端错误：${this.getStatusMessage(status)}`;
+		this.name = '【@sft/http ServerError】';
+		this.message = `服务端错误：${this.getStatusMessage(status)}`;
 	}
 
 	getStatusMessage(status: number | string): string {
@@ -58,7 +58,7 @@ export class ServerError extends RequestError {
 export class ClientError extends RequestError {
 	constructor(status: number | string, request: XMLHttpRequest | null, config: RequestConfig) {
 		super('', request, config);
-		this.name = 'ClientError';
+		this.name = '【@sft/http ClientError】';
 		this.message = `客户端错误：${this.getStatusMessage(status)}`;
 	}
 
