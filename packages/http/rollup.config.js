@@ -1,6 +1,11 @@
-import typescript from '@rollup/plugin-typescript';
+import { dirname, join, normalize, relative, resolve } from 'pathe'
+import tsPlugin from '@rollup/plugin-typescript';
 import rollupConfig from '../../rollup.config.js';
+import dts from "rollup-plugin-dts";
 
+const dstEntires = [
+	'src/index.ts',
+]
 export default [
 	{
 		...rollupConfig,
@@ -14,9 +19,30 @@ export default [
 		}],
 		plugins: [
 			...rollupConfig.plugins,
-			typescript({
-				tsconfig: './tsconfig.json',
+			tsPlugin({
+				tsconfig: "./tsconfig.json",
+				exclude: process.env.NODE_ENV === 'production' ? [
+					"node_modules", 
+					"lib",
+					"**/*.test.ts",
+					"**/tests/**"
+				]: [
+					"node_modules", 
+					"lib",
+				]
 			}),
 		]
 	},
+	{
+		...rollupConfig,
+		input: dstEntires,
+		output: {
+			dir: "lib",
+			entryFileNames: chunk => `${normalize(chunk.name).replace('src/', '')}.d.ts`,
+			format: 'esm',
+		},
+		plugins: [
+			dts({ respectExternal: true }),
+		]
+	}
 ];
