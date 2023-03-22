@@ -29,9 +29,9 @@ export type RequestConfig = {
 	withCredentials?: boolean;
 	async?: boolean;
 	responseType?: XMLHttpRequestResponseType;
+	signal?: AbortSignal;
 	onDownloadProgress?: (ProgressEvent) => any;
 	onUploadProgress?: (ProgressEvent) => any;
-	signal?: AbortSignal;
 };
 
 export type GlobalRequestConfig = RequiredByKeys<RequestConfig, keyof typeof DEFAULT_CONFIG>;

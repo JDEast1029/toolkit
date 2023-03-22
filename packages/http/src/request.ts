@@ -5,9 +5,16 @@ import { GlobalRequestConfig, UserConfig, ResponseData, SendBody, RequiredByKeys
 import { ClientError, ServerError } from './error';
 import { mergeConfig } from './helpers/merge-config';
 import { createFormData, isObject } from './helpers/utils';
+import { InterceptorManage } from './interceptor/index';
+import { Interceptor } from './interceptor/types';
 
 export default class HttpRequest {
 	globalConfig: GlobalRequestConfig;
+	interceptors = {
+		request: new InterceptorManage(),
+		response: new InterceptorManage(),
+	};
+
 	constructor(globalConfig?: object) {
 		this.globalConfig = mergeConfig<GlobalRequestConfig>(globalConfig || {}, DEFAULT_CONFIG);
 	}
@@ -42,12 +49,11 @@ export default class HttpRequest {
 		return url;
 	}
 
-	request(config: UserConfig) {
+	private dispatchRequest(config: UserConfig): Promise<ResponseData> {
 		const userConfig = mergeConfig<RequiredByKeys<UserConfig, keyof typeof DEFAULT_CONFIG>>(
 			this.globalConfig,
 			config,
 		);
-
 		let request: XMLHttpRequest | null = new XMLHttpRequest();
 
 		request.timeout = userConfig.timeout;
@@ -133,5 +139,22 @@ export default class HttpRequest {
 			// send data
 			request.send(params);
 		});
+	}
+
+	request(config: UserConfig) {
+		const promiseChain = [
+			...this.interceptors.request.interceptors,
+			this.dispatchRequest,
+			...this.interceptors.response.interceptors,
+		];
+		let promise = Promise.resolve(config);
+		while (promiseChain.length) {
+			try {
+				promise = promise.then(promiseChain.shift());
+			} catch (error) {
+				return Promise.reject(error);
+			}
+		}
+		return promise;
 	}
 }
