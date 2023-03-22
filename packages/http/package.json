@@ -5,10 +5,14 @@
 	"main": "./dist/index.js",
 	"scripts": {
 		"dev": "rollup -w --config --environment NODE_ENV:development",
-		"build": "rimraf dist && rollup --config --environment NODE_ENV:production"
+		"build": "rimraf dist && rollup --config --environment NODE_ENV:production",
+		"mock": "json-server --watch ./mock/db.json"
 	},
 	"version": "0.0.1",
 	"dependencies": {
-		"@sft/utils": "workspace:^0.0.4"
+		"@sft/utils": "^0.0.4"
+	},
+	"devDependencies": {
+		"json-server": "^0.17.3"
 	}
 }
