@@ -1,4 +1,4 @@
-export const isObject = (target: unknown): boolean => {
+export const isObject = (target: unknown): target is object => {
 	if (!target) return false;
 	return Object.prototype.toString.call(target) === '[object Object]';
 };

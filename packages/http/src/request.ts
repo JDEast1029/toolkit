@@ -39,7 +39,7 @@ export default class HttpRequest {
 					return pre;
 				}, {});
 		} else if (isObject(userConfig.params)) {
-			query = <object>userConfig.params;
+			query = userConfig.params;
 		}
 
 		url = mergeUrl(getUrlPath(url), {
