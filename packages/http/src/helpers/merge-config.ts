@@ -9,7 +9,7 @@ export const mergeConfig = <T>(source: object, merged: object): T => {
 		const value = source[key];
 		const mergedValue = merged[key];
 		if (value !== null || value !== undefined) {
-			if (isObject(value) && mergedValue && isObject(mergedValue)) {
+			if (isObject(value) && isObject(mergedValue)) {
 				config[key] = [...value, ...mergedValue];
 			} else {
 				config[key] = value;

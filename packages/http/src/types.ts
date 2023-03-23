@@ -18,13 +18,23 @@ export type RequestHeaders = {
 	[key: string]: string;
 };
 
+interface IteratorObject {
+	next(): {
+		value: any;
+		done: boolean;
+	};
+}
+export interface IterableObject {
+	[Symbol.iterator](): IteratorObject;
+}
+
 export type SendBody = Document | XMLHttpRequestBodyInit | null | undefined;
 export type RequestConfig = {
 	url?: string;
 	baseUrl?: string;
 	method?: RequestMethod;
 	headers?: RequestHeaders;
-	params?: SendBody | object;
+	params?: SendBody | IterableObject;
 	timeout?: number;
 	withCredentials?: boolean;
 	async?: boolean;
@@ -37,11 +47,6 @@ export type RequestConfig = {
 export type GlobalRequestConfig = RequiredByKeys<RequestConfig, keyof typeof DEFAULT_CONFIG>;
 
 export type UserConfig = RequiredByKeys<RequestConfig, 'url'>;
-
-export type Interceptors = {
-	// response: [];
-	// request: [];
-};
 
 export type ResponseHeaders = {
 	[key: string]: string;

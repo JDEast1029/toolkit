@@ -1,7 +1,7 @@
 import LinkedList, { StorageNode } from './linked-list';
 import { IStorageNode } from './types';
-
 import { StorageData } from './types';
+
 export default class LRUCache {
 	capacity: number;
 	map: Map<string, IStorageNode>;

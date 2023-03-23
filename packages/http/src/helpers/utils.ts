@@ -1,4 +1,6 @@
-export const isObject = (target: unknown): target is object => {
+import { IterableObject } from '../types';
+
+export const isObject = (target: unknown): target is IterableObject => {
 	if (!target) return false;
 	return Object.prototype.toString.call(target) === '[object Object]';
 };
