@@ -1,16 +1,5 @@
 import { DEFAULT_CONFIG } from './constants';
-
-export type Merge<T> = {
-	[K in keyof T]: T[K];
-};
-
-export type RequiredByKeys<T, K = keyof T> = Merge<
-	{
-		[P in keyof T as P extends K ? P : never]-?: T[P];
-	} & {
-		[P in keyof T as P extends K ? never : P]: T[P];
-	}
->;
+import { Nullable, RequiredByKeys } from './helpers/utility-types';
 
 export type RequestMethod = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'OPTIONS' | 'PATCH';
 
@@ -28,7 +17,8 @@ export interface IterableObject {
 	[Symbol.iterator](): IteratorObject;
 }
 
-export type SendBody = Document | XMLHttpRequestBodyInit | null | undefined;
+export type SendBody = Nullable<Document | XMLHttpRequestBodyInit | undefined>;
+
 export type RequestConfig = {
 	url?: string;
 	baseUrl?: string;
@@ -56,6 +46,6 @@ export type ResponseData = {
 	status: number;
 	statusText: string;
 	request: XMLHttpRequest;
-	headers: ResponseHeaders | null;
+	headers: Nullable<ResponseHeaders>;
 	config: RequestConfig;
 };

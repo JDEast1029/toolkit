@@ -1,11 +1,12 @@
 // import { Utils } from '@sft/utils';
 import { DEFAULT_CONFIG } from './constants';
 import { parseResponseHeaders, parseResponseData } from './helpers/parse-response';
-import { GlobalRequestConfig, UserConfig, ResponseData, SendBody, RequiredByKeys } from './types';
-import { ClientError, ServerError, InternalError, RequestError } from './error';
+import { GlobalRequestConfig, UserConfig, ResponseData, SendBody } from './types';
+import { ClientError, ServerError, RequestError } from './error';
 import { mergeConfig } from './helpers/merge-config';
 import { createFormData, getQuery, getUrlPath, isObject, mergeUrl } from './helpers/utils';
 import { InterceptorManage } from './interceptor/index';
+import { RequiredByKeys } from './helpers/utility-types';
 
 export default class HttpRequest {
 	globalConfig: GlobalRequestConfig;
