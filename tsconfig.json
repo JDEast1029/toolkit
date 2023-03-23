@@ -12,6 +12,7 @@
 		"resolveJsonModule": true,
 		"outDir": "./lib",
 		"noImplicitAny": false,  // 在表达式和声明上有隐含的 any类型时是否报错。
+		"stripInternal": true, 
 		"types": ["vitest/globals"],
 		"paths": {
 			"@tests-utils": ["./tests/utils/index.ts"]

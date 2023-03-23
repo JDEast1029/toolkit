@@ -1,0 +1,13 @@
+{
+  "name": "@sfy/ts-toolbelt",
+  "version": "0.0.1",
+  "description": "TypeScript类型工具",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "types": "lib/index.d.ts",
+  "main": "lib/index.js",
+  "scripts": {
+    "dev": "tsc -w"
+  }
+}
