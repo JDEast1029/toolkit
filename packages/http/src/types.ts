@@ -7,16 +7,6 @@ export type RequestHeaders = {
 	[key: string]: string;
 };
 
-interface IteratorObject {
-	next(): {
-		value: any;
-		done: boolean;
-	};
-}
-export interface IterableObject {
-	[Symbol.iterator](): IteratorObject;
-}
-
 export type SendBody = Nullable<Document | XMLHttpRequestBodyInit | undefined>;
 
 export type RequestConfig = {
@@ -24,7 +14,7 @@ export type RequestConfig = {
 	baseUrl?: string;
 	method?: RequestMethod;
 	headers?: RequestHeaders;
-	params?: SendBody | IterableObject;
+	params?: SendBody | object;
 	timeout?: number;
 	withCredentials?: boolean;
 	async?: boolean;
