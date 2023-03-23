@@ -126,7 +126,7 @@ export default class HttpRequest {
 				} else if (isObject(userConfig.params)) {
 					params = createFormData(userConfig.params as object);
 				} else {
-					params = <SendBody>userConfig.params;
+					params = userConfig.params;
 				}
 
 				// open url
