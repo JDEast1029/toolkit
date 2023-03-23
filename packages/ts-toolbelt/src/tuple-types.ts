@@ -16,3 +16,5 @@ export type Includes<T extends unknown[], U> = T extends [infer P, ...infer R]
 		? true
 		: Includes<R, U>
 	: false;
+
+export type Contact<T extends unknown[], U extends unknown[]> = [...T, ...U];
