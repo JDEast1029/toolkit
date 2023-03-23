@@ -5,8 +5,18 @@ export type Partial<T> = { [K in keyof T]?: T[K] };
 // 对象属性变成必填
 export type Required<T> = { [K in keyof T]-?: T[K] };
 
+// {name: 1} & {age: 1} => { name: 1, aget: 1}
+export type MergeAnd<T> = {
+	[K in keyof T]: T[K];
+};
+
 // 对象属性变成只读
 export type Readonly<T> = { readonly [K in keyof T]: T[K] };
+export type ReadonlyByKeys<T, K extends keyof T = keyof T> = MergeAnd<
+	Omit<T, K> & {
+		readonly [P in K]: T[P];
+	}
+>;
 export type DeepReadonly<T extends object> = {
 	readonly [K in keyof T]: T[K] extends Function
 		? T[K]
@@ -33,20 +43,18 @@ export type Merge<T extends object, U extends object> = {
 	[K in keyof T | keyof U]: K extends keyof U ? U[K] : K extends keyof T ? T[K] : never;
 };
 
-export type RequiredByKeys<T extends object, K extends keyof T = keyof T> = Merge<
+export type RequiredByKeys<T extends object, K extends keyof T = keyof T> = MergeAnd<
 	{
 		[P in keyof T as P extends K ? P : never]-?: T[P];
-	},
-	{
+	} & {
 		[P in keyof T as P extends K ? never : P]: T[P];
 	}
 >;
 
-export type PartialByKeys<T extends object, K extends keyof T = keyof T> = Merge<
+export type PartialByKeys<T extends object, K extends keyof T = keyof T> = MergeAnd<
 	{
 		[P in keyof T as P extends K ? P : never]+?: T[P];
-	},
-	{
+	} & {
 		[P in keyof T as P extends K ? never : P]: T[P];
 	}
 >;
